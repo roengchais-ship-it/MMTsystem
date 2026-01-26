@@ -1,148 +1,246 @@
-import React, { useState, useEffect } from 'react';
-import { ClipboardCheck, Package, ArrowRight, ShieldCheck, UserCircle, Megaphone, Cloud } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>มีเมตตา System Portal</title>
+    
+    <!-- Load React and ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Load Babel for JSX support in browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-const App = () => {
-  const [currentTime, setCurrentTime] = useState(new Date());
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.5s ease-out;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <div id="root"></div>
 
-  // นาฬิกาแบบ Realtime
-  useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-  const systems = [
-    {
-      id: 1,
-      name: "QC System",
-      description: "ตรวจสอบคุณภาพสินค้า",
-      url: "https://roengchais-ship-it.github.io/QCsystem/",
-      icon: <ClipboardCheck size={48} />,
-      color: "from-[#2C4635] to-[#3a5c45]",
-      btnColor: "bg-[#2C4635]",
-    },
-    {
-      id: 2,
-      name: "Shipping สาขา",
-      description: "จัดการงานจัดส่งสินค้า",
-      url: "https://roengchais-ship-it.github.io/Warehouse-QC-Management-SystemV3/",
-      icon: <Package size={48} />,
-      color: "from-emerald-700 to-emerald-600",
-      btnColor: "bg-emerald-700",
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
-      
-      {/* Top Navigation Bar */}
-      <nav className="bg-[#2C4635] text-white shadow-lg sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="bg-white/10 p-1.5 rounded-lg backdrop-blur-sm">
-              <ShieldCheck className="text-white" size={24} />
-            </div>
-            <div>
-              <span className="font-bold text-lg tracking-wide">มีเมตตา System</span>
-              <span className="text-xs text-white/60 block -mt-1">Internal Portal</span>
-            </div>
-          </div>
-          <div className="flex items-center space-x-4">
-            <div className="hidden sm:block text-right">
-              <div className="text-sm font-medium">{currentTime.toLocaleTimeString('th-TH', {hour: '2-digit', minute:'2-digit'})}</div>
-              <div className="text-xs text-white/70">{currentTime.toLocaleDateString('th-TH', {weekday: 'long', day: 'numeric', month: 'short'})}</div>
-            </div>
-            <div className="h-8 w-8 bg-white/20 rounded-full flex items-center justify-center border-2 border-white/30">
-              <UserCircle size={20} />
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <main className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+        // --- Icons Components (SVG) ---
+        // สร้างไอคอนขึ้นมาเองเพื่อให้ทำงานได้โดยไม่ต้อง Install อะไรเพิ่ม
         
-        {/* News Ticker / Announcement (นำกลับมาตามคำขอ) */}
-        <div className="bg-white rounded-xl shadow-sm border-l-4 border-yellow-400 p-4 flex items-center gap-4 animate-fade-in-up">
-          <div className="bg-yellow-100 p-2 rounded-full shrink-0">
-            <Megaphone size={20} className="text-yellow-700" />
-          </div>
-          <div className="flex-1 overflow-hidden">
-             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-               <span className="text-xs font-bold bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-md">ประกาศ</span>
-               <p className="text-sm text-slate-700 truncate">
-                 ขอความร่วมมือพนักงานทุกท่าน ตรวจสอบสินค้า Lot ล่าสุดอย่างละเอียด (มีผล 26 ม.ค.)
-               </p>
-             </div>
-          </div>
-          <ArrowRight size={16} className="text-slate-400" />
-        </div>
+        const ShieldCheck = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="m9 12 2 2 4-4"/>
+            </svg>
+        );
 
-        {/* Hero Section & Weather Widget (นำกลับมา) */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-bold text-slate-800">สวัสดี, ทีมงานคุณภาพ 👋</h1>
-            <p className="text-slate-500">เลือกเมนูหลักเพื่อเริ่มปฏิบัติงาน</p>
-          </div>
-          
-          {/* Weather Widget */}
-          <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-100">
-            <Cloud className="text-blue-400" size={24} />
-            <div>
-              <div className="text-sm font-semibold">28°C</div>
-              <div className="text-xs text-slate-500">คลังสินค้า A</div>
-            </div>
-          </div>
-        </div>
+        const UserCircle = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="10" r="3"/>
+                <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/>
+            </svg>
+        );
 
-        {/* Main Systems Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {systems.map((system) => (
-            <a 
-              key={system.id}
-              href={system.url}
-              className="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 bg-white border border-slate-100 flex flex-col h-64"
-            >
-              {/* Colored Header Background */}
-              <div className={`h-full w-2 bg-gradient-to-b ${system.color} absolute left-0 top-0`} />
-              <div className={`h-32 bg-gradient-to-r ${system.color} absolute top-0 right-0 w-32 rounded-bl-full opacity-10 transition-transform group-hover:scale-150 duration-500`} />
-              
-              <div className="relative z-10 p-8 flex flex-col h-full justify-between">
-                <div>
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="p-3 bg-slate-50 rounded-2xl text-[#2C4635] shadow-sm group-hover:bg-[#2C4635] group-hover:text-white transition-colors duration-300">
-                      {system.icon}
-                    </div>
-                    <div className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium">
-                      Online
-                    </div>
-                  </div>
-                  
-                  <h2 className="text-2xl font-bold text-slate-800 mb-2 group-hover:text-[#2C4635] transition-colors">
-                    {system.name}
-                  </h2>
-                  <p className="text-slate-500">
-                    {system.description}
-                  </p>
+        const Megaphone = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="m3 11 18-5v12L3 14v-3z"/>
+                <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>
+            </svg>
+        );
+
+        const ArrowRight = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="M5 12h14"/>
+                <path d="m12 5 7 7-7 7"/>
+            </svg>
+        );
+
+        const Cloud = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="M17.5 19c0-1.7-1.3-3-3-3h-1.1c-.2-3.1-2.7-5.5-5.8-5.5-3.2 0-5.7 2.5-5.7 5.7v.5c-2.3.2-4 2-4 4.3 0 2.2 1.8 4 4 4h11.5c2.5 0 4.5-2 4.5-4.5s-2-4.5-4.5-4.5z"/>
+            </svg>
+        );
+
+        const ClipboardCheck = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                <path d="m9 14 2 2 4-4"/>
+            </svg>
+        );
+
+        const Package = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="m7.5 4.27 9 5.15"/>
+                <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+                <path d="m3.3 7 8.7 5 8.7-5"/>
+                <path d="M12 22v-9"/>
+            </svg>
+        );
+
+        // --- Main App Component ---
+
+        const App = () => {
+            const [currentTime, setCurrentTime] = useState(new Date());
+
+            useEffect(() => {
+                const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+                return () => clearInterval(timer);
+            }, []);
+
+            const systems = [
+                {
+                    id: 1,
+                    name: "QC System",
+                    description: "ตรวจสอบคุณภาพสินค้า",
+                    url: "https://roengchais-ship-it.github.io/QCsystem/",
+                    icon: <ClipboardCheck size={48} />, 
+                    color: "from-[#2C4635] to-[#3a5c45]",
+                    btnColor: "bg-[#2C4635]",
+                },
+                {
+                    id: 2,
+                    name: "Shipping สาขา",
+                    description: "จัดการงานจัดส่งสินค้า",
+                    url: "https://roengchais-ship-it.github.io/Warehouse-QC-Management-SystemV3/",
+                    icon: <Package size={48} />, 
+                    color: "from-emerald-700 to-emerald-600",
+                    btnColor: "bg-emerald-700",
+                }
+            ];
+
+            return (
+                <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-20">
+                    
+                    {/* Top Navigation Bar */}
+                    <nav className="bg-[#2C4635] text-white shadow-lg sticky top-0 z-50">
+                        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                                <div className="bg-white/10 p-1.5 rounded-lg backdrop-blur-sm">
+                                    <ShieldCheck className="text-white" size={24} />
+                                </div>
+                                <div>
+                                    <span className="font-bold text-lg tracking-wide">มีเมตตา System</span>
+                                    <span className="text-xs text-white/60 block -mt-1">Internal Portal</span>
+                                </div>
+                            </div>
+                            <div className="flex items-center space-x-4">
+                                <div className="hidden sm:block text-right">
+                                    <div className="text-sm font-medium">
+                                        {currentTime.toLocaleTimeString('th-TH', {hour: '2-digit', minute:'2-digit'})}
+                                    </div>
+                                    <div className="text-xs text-white/70">
+                                        {currentTime.toLocaleDateString('th-TH', {weekday: 'long', day: 'numeric', month: 'short'})}
+                                    </div>
+                                </div>
+                                <div className="h-8 w-8 bg-white/20 rounded-full flex items-center justify-center border-2 border-white/30">
+                                    <UserCircle size={20} />
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <main className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+                        
+                        {/* News Ticker */}
+                        <div className="bg-white rounded-xl shadow-sm border-l-4 border-yellow-400 p-4 flex items-center gap-4 animate-fade-in-up">
+                            <div className="bg-yellow-100 p-2 rounded-full shrink-0">
+                                <Megaphone size={20} className="text-yellow-700" />
+                            </div>
+                            <div className="flex-1 overflow-hidden">
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                    <span className="text-xs font-bold bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-md">ประกาศ</span>
+                                    <p className="text-sm text-slate-700 truncate">
+                                        ขอความร่วมมือพนักงานทุกท่าน ตรวจสอบสินค้า Lot ล่าสุดอย่างละเอียด (มีผล 26 ม.ค.)
+                                    </p>
+                                </div>
+                            </div>
+                            <ArrowRight size={16} className="text-slate-400" />
+                        </div>
+
+                        {/* Hero Section & Weather Widget */}
+                        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                            <div>
+                                <h1 className="text-2xl font-bold text-slate-800">สวัสดี, ทีมงานคุณภาพ 👋</h1>
+                                <p className="text-slate-500">เลือกเมนูหลักเพื่อเริ่มปฏิบัติงาน</p>
+                            </div>
+                            
+                            {/* Weather Widget */}
+                            <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-100">
+                                <Cloud className="text-blue-400" size={24} />
+                                <div>
+                                    <div className="text-sm font-semibold">28°C</div>
+                                    <div className="text-xs text-slate-500">คลังสินค้า A</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Main Systems Cards */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                            {systems.map((system) => (
+                                <a 
+                                    key={system.id}
+                                    href={system.url}
+                                    className="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 bg-white border border-slate-100 flex flex-col h-64"
+                                >
+                                    {/* Colored Header Background */}
+                                    <div className={`h-full w-2 bg-gradient-to-b ${system.color} absolute left-0 top-0`}></div>
+                                    <div className={`h-32 bg-gradient-to-r ${system.color} absolute top-0 right-0 w-32 rounded-bl-full opacity-10 transition-transform group-hover:scale-150 duration-500`}></div>
+                                    
+                                    <div className="relative z-10 p-8 flex flex-col h-full justify-between">
+                                        <div>
+                                            <div className="flex items-center gap-4 mb-4">
+                                                <div className="p-3 bg-slate-50 rounded-2xl text-[#2C4635] shadow-sm group-hover:bg-[#2C4635] group-hover:text-white transition-colors duration-300">
+                                                    {system.icon}
+                                                </div>
+                                                <div className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium">
+                                                    Online
+                                                </div>
+                                            </div>
+                                            
+                                            <h2 className="text-2xl font-bold text-slate-800 mb-2 group-hover:text-[#2C4635] transition-colors">
+                                                {system.name}
+                                            </h2>
+                                            <p className="text-slate-500">
+                                                {system.description}
+                                            </p>
+                                        </div>
+
+                                        <div className="flex items-center text-sm font-bold text-[#2C4635] mt-4 group-hover:translate-x-2 transition-transform">
+                                            เข้าสู่ระบบ <span className="ml-2">→</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
+
+                    </main>
+
+                    {/* Simple Footer */}
+                    <footer className="fixed bottom-0 w-full py-4 text-center text-xs text-slate-400 bg-white border-t border-slate-200">
+                        © 2024 มีเมตตา System | ติดต่อฝ่าย IT โทร. 1150
+                    </footer>
+
                 </div>
+            );
+        };
 
-                <div className="flex items-center text-sm font-bold text-[#2C4635] mt-4 group-hover:translate-x-2 transition-transform">
-                  เข้าสู่ระบบ <ArrowRight size={18} className="ml-2" />
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-
-        {/* ตัดส่วน Quick Service Menu ออกแล้ว */}
-
-      </main>
-
-      {/* Simple Footer */}
-      <footer className="w-full py-6 text-center text-xs text-slate-400 bg-white border-t border-slate-200 mt-12">
-        © 2024 มีเมตตา System | ติดต่อฝ่าย IT โทร. 1150
-      </footer>
-
-    </div>
-  );
-};
-
-export default App;
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
