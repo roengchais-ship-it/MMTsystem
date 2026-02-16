@@ -91,12 +91,20 @@
             </svg>
         );
         
-        // เพิ่มไอคอนสำหรับ Stock (Layers)
         const Layers = ({ size = 24, className = "" }) => (
             <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
                 <polygon points="12 2 2 7 12 12 22 7 12 2"/>
                 <polyline points="2 17 12 22 22 17"/>
                 <polyline points="2 12 12 17 22 12"/>
+            </svg>
+        );
+
+        // Shopping Cart Icon for Onest Order
+        const ShoppingCart = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <circle cx="8" cy="21" r="1"/>
+                <circle cx="19" cy="21" r="1"/>
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
             </svg>
         );
 
@@ -116,27 +124,40 @@
                     name: "QC System",
                     description: "ตรวจสอบคุณภาพสินค้า",
                     url: "https://roengchais-ship-it.github.io/QCsystem/",
-                    icon: <ClipboardCheck size={48} />, 
+                    icon: <ClipboardCheck size={40} />, 
                     color: "from-[#2C4635] to-[#3a5c45]",
-                    btnColor: "bg-[#2C4635]",
+                    hoverColor: "text-[#2C4635]",
+                    tag: "QC"
                 },
                 {
                     id: 2,
                     name: "Shipping สาขา",
                     description: "จัดการงานจัดส่งสินค้า",
                     url: "https://roengchais-ship-it.github.io/Warehouse-QC-Management-SystemV3/",
-                    icon: <Package size={48} />, 
+                    icon: <Package size={40} />, 
                     color: "from-emerald-700 to-emerald-600",
-                    btnColor: "bg-emerald-700",
+                    hoverColor: "text-emerald-700",
+                    tag: "WH"
                 },
                 {
                     id: 3,
                     name: "Stock",
                     description: "ระบบจัดการสต็อกสินค้า",
                     url: "https://roengchais-ship-it.github.io/oneststock/",
-                    icon: <Layers size={48} />, 
+                    icon: <Layers size={40} />, 
                     color: "from-teal-700 to-teal-600",
-                    btnColor: "bg-teal-700",
+                    hoverColor: "text-teal-700",
+                    tag: "ST"
+                },
+                {
+                    id: 4,
+                    name: "Onest Order",
+                    description: "ระบบจัดการรายการสั่งซื้อ",
+                    url: "https://roengchais-ship-it.github.io/Onset-ERP/",
+                    icon: <ShoppingCart size={40} />, 
+                    color: "from-blue-700 to-indigo-600",
+                    hoverColor: "text-blue-700",
+                    tag: "ERP"
                 }
             ];
 
@@ -145,7 +166,7 @@
                     
                     {/* Top Navigation Bar */}
                     <nav className="bg-[#2C4635] text-white shadow-lg sticky top-0 z-50">
-                        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+                        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
                             <div className="flex items-center space-x-3">
                                 <div className="bg-white/10 p-1.5 rounded-lg backdrop-blur-sm">
                                     <ShieldCheck className="text-white" size={24} />
@@ -164,14 +185,14 @@
                                         {currentTime.toLocaleDateString('th-TH', {weekday: 'long', day: 'numeric', month: 'short'})}
                                     </div>
                                 </div>
-                                <div className="h-8 w-8 bg-white/20 rounded-full flex items-center justify-center border-2 border-white/30">
+                                <div className="h-8 w-8 bg-white/20 rounded-full flex items-center justify-center border-2 border-white/30 cursor-pointer hover:bg-white/30 transition-colors">
                                     <UserCircle size={20} />
                                 </div>
                             </div>
                         </div>
                     </nav>
 
-                    <main className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+                    <main className="max-w-7xl mx-auto px-4 py-8 space-y-8">
                         
                         {/* News Ticker */}
                         <div className="bg-white rounded-xl shadow-sm border-l-4 border-yellow-400 p-4 flex items-center gap-4 animate-fade-in-up">
@@ -186,18 +207,18 @@
                                     </p>
                                 </div>
                             </div>
-                            <ArrowRight size={16} className="text-slate-400" />
+                            <ArrowRight size={16} className="text-slate-400 cursor-pointer hover:text-slate-600" />
                         </div>
 
                         {/* Hero Section & Weather Widget */}
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-                            <div>
+                            <div className="animate-fade-in-up" style={{animationDelay: '0.1s'}}>
                                 <h1 className="text-2xl font-bold text-slate-800">สวัสดี, ทีมงานคุณภาพ 👋</h1>
                                 <p className="text-slate-500">เลือกเมนูหลักเพื่อเริ่มปฏิบัติงาน</p>
                             </div>
                             
                             {/* Weather Widget */}
-                            <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-100">
+                            <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-100 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
                                 <Cloud className="text-blue-400" size={24} />
                                 <div>
                                     <div className="text-sm font-semibold">28°C</div>
@@ -206,39 +227,40 @@
                             </div>
                         </div>
 
-                        {/* Main Systems Cards - ปรับ Grid ให้รองรับ 3 การ์ด */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                            {systems.map((system) => (
+                        {/* Main Systems Cards - Grid ปรับเป็น 4 คอลัมน์สำหรับหน้าจอใหญ่ */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {systems.map((system, index) => (
                                 <a 
                                     key={system.id}
                                     href={system.url}
-                                    className="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 bg-white border border-slate-100 flex flex-col h-64"
+                                    className="group relative overflow-hidden rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 bg-white border border-slate-100 flex flex-col h-64 animate-fade-in-up"
+                                    style={{animationDelay: `${0.1 * (index + 3)}s`}}
                                 >
-                                    {/* Colored Header Background */}
-                                    <div className={`h-full w-2 bg-gradient-to-b ${system.color} absolute left-0 top-0`}></div>
-                                    <div className={`h-32 bg-gradient-to-r ${system.color} absolute top-0 right-0 w-32 rounded-bl-full opacity-10 transition-transform group-hover:scale-150 duration-500`}></div>
+                                    {/* Colored Accent */}
+                                    <div className={`h-1.5 w-full bg-gradient-to-r ${system.color} absolute top-0 left-0`}></div>
+                                    <div className={`h-32 w-32 bg-gradient-to-br ${system.color} absolute -top-10 -right-10 rounded-full opacity-5 transition-transform group-hover:scale-150 duration-500`}></div>
                                     
-                                    <div className="relative z-10 p-8 flex flex-col h-full justify-between">
+                                    <div className="relative z-10 p-6 flex flex-col h-full justify-between">
                                         <div>
-                                            <div className="flex items-center gap-4 mb-4">
-                                                <div className={`p-3 bg-slate-50 rounded-2xl text-[#2C4635] shadow-sm group-hover:bg-[#2C4635] group-hover:text-white transition-colors duration-300`}>
+                                            <div className="flex justify-between items-start mb-4">
+                                                <div className={`p-3 bg-slate-50 rounded-xl shadow-sm group-hover:bg-slate-100 transition-colors duration-300 ${system.hoverColor}`}>
                                                     {system.icon}
                                                 </div>
-                                                <div className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium">
-                                                    Online
-                                                </div>
+                                                <span className="bg-slate-100 text-slate-600 text-[10px] px-2 py-1 rounded-md font-bold uppercase tracking-wider">
+                                                    {system.tag}
+                                                </span>
                                             </div>
                                             
-                                            <h2 className="text-2xl font-bold text-slate-800 mb-2 group-hover:text-[#2C4635] transition-colors">
+                                            <h2 className={`text-lg font-bold text-slate-800 mb-1 group-hover:${system.hoverColor} transition-colors`}>
                                                 {system.name}
                                             </h2>
-                                            <p className="text-slate-500">
+                                            <p className="text-sm text-slate-500 leading-relaxed">
                                                 {system.description}
                                             </p>
                                         </div>
 
-                                        <div className="flex items-center text-sm font-bold text-[#2C4635] mt-4 group-hover:translate-x-2 transition-transform">
-                                            เข้าสู่ระบบ <span className="ml-2">→</span>
+                                        <div className={`flex items-center text-sm font-bold mt-4 ${system.hoverColor} group-hover:translate-x-1 transition-transform`}>
+                                            เข้าสู่ระบบ <ArrowRight size={16} className="ml-2" />
                                         </div>
                                     </div>
                                 </a>
@@ -247,8 +269,8 @@
 
                     </main>
 
-                    {/* Simple Footer */}
-                    <footer className="fixed bottom-0 w-full py-4 text-center text-xs text-slate-400 bg-white border-t border-slate-200">
+                    {/* Footer */}
+                    <footer className="fixed bottom-0 w-full py-4 text-center text-xs text-slate-400 bg-white/90 backdrop-blur-sm border-t border-slate-200">
                         © 2024 มีเมตตา System | ติดต่อฝ่าย IT โทร. 1150
                     </footer>
 
