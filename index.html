@@ -5,17 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>มีเมตตา System Portal</title>
     
-    <!-- Load React and ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     
-    <!-- Load Babel for JSX support in browser -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -99,12 +95,19 @@
             </svg>
         );
 
-        // Shopping Cart Icon for Onest Order
         const ShoppingCart = ({ size = 24, className = "" }) => (
             <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
                 <circle cx="8" cy="21" r="1"/>
                 <circle cx="19" cy="21" r="1"/>
                 <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+            </svg>
+        );
+
+        // เพิ่มไอคอน TrendingUp สำหรับระบบ Forecast
+        const TrendingUp = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                <polyline points="17 6 23 6 23 12"/>
             </svg>
         );
 
@@ -158,6 +161,17 @@
                     color: "from-blue-700 to-indigo-600",
                     hoverColor: "text-blue-700",
                     tag: "ERP"
+                },
+                // เพิ่มระบบ Forecast System เข้าไปตรงนี้
+                {
+                    id: 5,
+                    name: "Forecast",
+                    description: "ระบบพยากรณ์และคาดการณ์",
+                    url: "https://roengchais-ship-it.github.io/forecast/",
+                    icon: <TrendingUp size={40} />, 
+                    color: "from-purple-700 to-purple-600",
+                    hoverColor: "text-purple-700",
+                    tag: "FC"
                 }
             ];
 
